@@ -18,15 +18,20 @@
     </h1>
   </div>
 
-  <div th:replace="${view} :: content" class="container">
-    Page Content
+  <div class="container">
+    <div th:replace="${view} :: content">
+      Page Content
+    </div>
   </div>
 
   <div th:replace="fragments/footer :: footer">
     <h1>
       Footer
     </h1>
-    <script src="http://code.jquery.com/jquery.js"></script>
+  </div>
+
+  <div>
+    <script src="/webjars/jquery/3.1.1/jquery.min.js"></script>
     <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </div>
   </body>

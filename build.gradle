@@ -41,9 +41,8 @@ dependencies {
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 
   //assets
-  // https://mvnrepository.com/artifact/org.webjars/webjars-locator
-//  compile group: 'org.webjars', name: 'webjars-locator', version: '0.32'
-
   // https://mvnrepository.com/artifact/org.webjars/bootstrap
   compile("org.webjars:bootstrap:3.3.7")
+  // https://mvnrepository.com/artifact/org.webjars/jquery
+  compile("org.webjars:jquery:3.1.1")
 }
