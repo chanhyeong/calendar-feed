@@ -19,6 +19,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @ComponentScan("kr.ac.ajou.service")
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+// Get Current User
+//  https://www.mkyong.com/spring-security/get-current-logged-in-username-in-spring-security/
+
   @Autowired
   private UserDetailsService userDetailsService;
 
@@ -31,7 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     http
         .authorizeRequests()
-        .antMatchers("/resources/**", "/users/registration").permitAll()
+        .antMatchers("/resources/**", "/users/registration", "/webjars/**", "/static/**").permitAll()
         .anyRequest().authenticated()
         .and()
         .formLogin()
