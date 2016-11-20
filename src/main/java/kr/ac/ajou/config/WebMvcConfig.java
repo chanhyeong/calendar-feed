@@ -53,7 +53,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
   public MessageSource messageSource()
   {
     ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-    messageSource.setBasename("messages");
+    messageSource.setBasename("locale/messages");
     messageSource.setDefaultEncoding("UTF-8");
     messageSource.setCacheSeconds(3600);
 

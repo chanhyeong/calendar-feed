@@ -6,6 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 
 /**
@@ -21,8 +25,20 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public void save(User user) {
+    long now = ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toInstant().toEpochMilli();
     user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
     user.setPasswordConfirm(bCryptPasswordEncoder.encode(user.getPasswordConfirm()));
+    user.setUpdatedAt(new Timestamp(now));
+    userRepository.save(user);
+  }
+
+  @Override
+  public void create(User user) {
+    long now = ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toInstant().toEpochMilli();
+    user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+    user.setPasswordConfirm(bCryptPasswordEncoder.encode(user.getPasswordConfirm()));
+    user.setUpdatedAt(new Timestamp(now));
+    user.setCreatedAt(new Timestamp(now));
     userRepository.save(user);
   }
 

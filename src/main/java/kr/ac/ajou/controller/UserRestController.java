@@ -28,38 +28,40 @@ public class UserRestController {
   @Autowired
   private UserValidator userValidator;
 
-  @RequestMapping(value = "/registration", method = RequestMethod.GET)
-  public ModelAndView registration(Model model) {
-    ModelAndView modelAndView = new ModelAndView("users/registration");
+  @RequestMapping(value = "/sign_up", method = RequestMethod.GET)
+  public ModelAndView signUp(Model model) {
+    ModelAndView modelAndView = new ModelAndView("users/sign_up");
 
 //    model.addAttribute("userForm", new User());
     return modelAndView;
   }
 
-  @RequestMapping(value = "/registration", method = RequestMethod.POST)
-  public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
-    userValidator.validate(userForm, bindingResult);
+  @RequestMapping(value = "/sign_up", method = RequestMethod.POST)
+  public ModelAndView userCreate(@ModelAttribute("signUpForm") User user, BindingResult bindingResult, Model model) {
+    ModelAndView modelAndView = new ModelAndView();
+    userValidator.validate(user, bindingResult);
 
     if (bindingResult.hasErrors()) {
-      return "users/registration";
+      modelAndView.setViewName("users/sign_up");
+      return modelAndView;
     }
 
-    userService.save(userForm);
+    userService.create(user);
 
-    securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
-
-    return "redirect:/welcome";
+    securityService.autologin(user.getUsername(), user.getPassword());
+    modelAndView.setViewName("redirect:/users/sign_in");
+    return modelAndView;
   }
 
-  @RequestMapping(value = "/login", method = RequestMethod.GET)
-  public ModelAndView login(Model model, String error, String logout) {
+  @RequestMapping(value = "/sign_in", method = RequestMethod.GET)
+  public ModelAndView signIn(Model model, String error, String logout) {
     if (error != null)
       model.addAttribute("error", "Your username and password is invalid.");
 
     if (logout != null)
       model.addAttribute("message", "You have been logged out successfully.");
-    ModelAndView modelAndView = new ModelAndView("users/registration");
-    modelAndView.setViewName("users/login");
+    ModelAndView modelAndView = new ModelAndView("users/sign_up");
+    modelAndView.setViewName("users/sign_in");
     return modelAndView;
   }
 
@@ -68,4 +70,3 @@ public class UserRestController {
 //    return new ResponseEntity<>((Collection<User>) repository.findAll(), HttpStatus.OK);
 //  }
 }
-

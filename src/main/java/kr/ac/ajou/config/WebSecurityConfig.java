@@ -34,11 +34,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     http
         .authorizeRequests()
-        .antMatchers("/resources/**", "/users/registration", "/webjars/**", "/static/**").permitAll()
+        .antMatchers("/resources/**", "/users/sign_up", "/webjars/**", "/static/**").permitAll()
         .anyRequest().authenticated()
         .and()
         .formLogin()
-        .loginPage("/users/login")
+        .loginPage("/users/sign_in")
         .permitAll()
         .and()
         .logout()
@@ -47,6 +47,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Autowired
   public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-    auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+    auth
+        .userDetailsService(userDetailsService)
+        .passwordEncoder(bCryptPasswordEncoder());
   }
 }

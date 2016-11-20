@@ -12,7 +12,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @RepositoryRestResource(collectionResourceRel = "users", path = "users")
 public interface UserRepository extends PagingAndSortingRepository<User, Long> {
 
-  // username == email
-  User findByEmail(@Param("email") String email);
   User findByUsername(@Param("username") String username);
 }
