@@ -1,6 +1,8 @@
 <div th:fragment="content" xmlns:th="http://www.w3.org/1999/xhtml">
   <p>
-    Hello User!
+    Hello
+    <span th:text="${currentUser.username}"></span>
+    <span th:text="${currentUser.name}"></span>
     Welcome to the Spring MVC Quickstart application!
   </p>
 </div>

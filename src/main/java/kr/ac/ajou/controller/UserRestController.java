@@ -5,12 +5,10 @@ import kr.ac.ajou.service.SecurityService;
 import kr.ac.ajou.service.UserService;
 import kr.ac.ajou.service.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -37,7 +35,7 @@ public class UserRestController {
   }
 
   @RequestMapping(value = "/sign_up", method = RequestMethod.POST)
-  public ModelAndView userCreate(@ModelAttribute("signUpForm") User user, BindingResult bindingResult, Model model) {
+  public ModelAndView signUp(@ModelAttribute("signUpForm") User user, BindingResult bindingResult) {
     ModelAndView modelAndView = new ModelAndView();
     userValidator.validate(user, bindingResult);
 
@@ -46,24 +44,39 @@ public class UserRestController {
       return modelAndView;
     }
 
+    String rawPassword = user.getPassword();
     userService.create(user);
 
-    securityService.autologin(user.getUsername(), user.getPassword());
+    securityService.autoLogin(user.getUsername(), rawPassword);
     modelAndView.setViewName("redirect:/users/sign_in");
     return modelAndView;
   }
 
   @RequestMapping(value = "/sign_in", method = RequestMethod.GET)
-  public ModelAndView signIn(Model model, String error, String logout) {
-    if (error != null)
-      model.addAttribute("error", "Your username and password is invalid.");
+  public ModelAndView signIn(@RequestParam(value = "error", required = false) String error,
+                             @RequestParam(value = "logout", required = false) String logout) {
+    ModelAndView model = new ModelAndView();
+    if (error != null) {
+      model.addObject("error", "Invalid username and password!");
+    }
 
-    if (logout != null)
-      model.addAttribute("message", "You have been logged out successfully.");
-    ModelAndView modelAndView = new ModelAndView("users/sign_up");
-    modelAndView.setViewName("users/sign_in");
-    return modelAndView;
+    if (logout != null) {
+      model.addObject("message", "You've been logged out successfully.");
+    }
+    model.setViewName("users/sign_in");
+
+    return model;
   }
+
+//  @RequestMapping(value = "/sign_in", method = RequestMethod.POST)
+//  public ModelAndView singIn(@ModelAttribute("signInForm") User user, BindingResult bindingResult) {
+//    try {
+//      securityService.login(user.getUsername(), user.getPassword());
+//    } catch (BadCredentialsException e) {
+//      return new ModelAndView("users/sign_in");
+//    }
+//    return new ModelAndView("home");
+//  }
 
 //  @RequestMapping(method = RequestMethod.GET)
 //  public ResponseEntity<Collection<User>> getAllUsers(){
