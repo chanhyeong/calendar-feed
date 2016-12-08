@@ -23,7 +23,6 @@ public class UserServiceImpl implements UserService {
   @Autowired
   private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-  @Override
   public void save(User user) {
     long now = ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toInstant().toEpochMilli();
     user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
@@ -32,7 +31,7 @@ public class UserServiceImpl implements UserService {
     userRepository.save(user);
   }
 
-  @Override
+
   public void create(User user) {
     long now = ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toInstant().toEpochMilli();
     user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
@@ -42,7 +41,6 @@ public class UserServiceImpl implements UserService {
     userRepository.save(user);
   }
 
-  @Override
   public User findByUsername(String username) {
     return userRepository.findByUsername(username);
   }
