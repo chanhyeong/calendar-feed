@@ -29,4 +29,5 @@ public class WecolmeRestController {
     modelAndView.addObject("currentUser", user);
     return modelAndView;
   }
+
 }

@@ -17,6 +17,7 @@ public class User {
   private long id;
 
 //  private String email;
+  @Column()
   private String username;
   private String name;
   private String role;

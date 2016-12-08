@@ -13,6 +13,7 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'maven'
 
 jar {
 	baseName = 'calendar-feed'
@@ -25,20 +26,36 @@ repositories {
 	mavenCentral()
 }
 
+task writeNewPom << {
+  pom {
+    project {
+      groupId 'kr.ac.ajou'
+      artifactId 'calendar-feed'
+      version '1.0.0'
+      inceptionYear '2016'
+      licenses {
+        license {
+          name 'The Apache Software License, Version 2.0'
+          url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+        }
+      }
+    }
+  }.writeTo("pom.xml")
+}
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-  compile("org.springframework.boot:spring-boot-starter-data-rest")
-  compile("org.springframework.boot:spring-boot-starter-security")
-  compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+	compile("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}")
+  compile("org.springframework.boot:spring-boot-starter-data-rest:${springBootVersion}")
+  compile("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
+  compile("org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}")
 
   // mysql
   compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
 //	compile('org.flywaydb:flyway-core')
 
-	compile('org.springframework.boot:spring-boot-starter-web')
-	compileOnly('org.projectlombok:lombok')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+	compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+	compileOnly('org.projectlombok:lombok:1.16.12')
+	testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
 
   //assets
   // https://mvnrepository.com/artifact/org.webjars/bootstrap
