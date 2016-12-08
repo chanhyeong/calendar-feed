@@ -19,3 +19,10 @@ https://spring.io/guides/gs/securing-web/
 https://spring.io/guides
 
 http://www.thymeleaf.org/doc/articles/standarddialect5minutes.html
+
+## Run
+
+- ![Run. Step 1](https://github.com/kty1965/calendar-feed/blob/master/images/1.png)
+- ![Run. Step 2](https://github.com/kty1965/calendar-feed/blob/master/images/2.png)
+- ![Run. Step 3](https://github.com/kty1965/calendar-feed/blob/master/images/3.png)
+- ![Run. Step 4](https://github.com/kty1965/calendar-feed/blob/master/images/4.png)
