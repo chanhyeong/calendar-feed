@@ -1,7 +1,8 @@
 <div th:fragment="content" xmlns:th="http://www.w3.org/1999/xhtml">
     <div class="container" ng-show="!home.authenticated">
         <div class="facebook" ng-app="app" ng-controller="home as home">
-        Login with: <a href="/social/login">Facebook</a>
+            Login with: <a href="/social/login">Facebook</a>
+        </div>
     </div>
     <div class="container" ng-show="home.authenticated">
         Logged in as: <span ng-bind="home.user"></span>

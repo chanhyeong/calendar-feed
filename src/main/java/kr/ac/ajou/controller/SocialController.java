@@ -15,9 +15,8 @@ import java.security.Principal;
 
 @EnableOAuth2Client
 @RestController
-@RequestMapping("/social")
 public class SocialController {
-    @RequestMapping("/user")
+    @RequestMapping("/social/user")
     public Principal user(Principal principal) {
         return principal;
     }
