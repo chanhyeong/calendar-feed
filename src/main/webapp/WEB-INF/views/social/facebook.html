@@ -1,7 +1,7 @@
 <div th:fragment="content" xmlns:th="http://www.w3.org/1999/xhtml">
     <div class="container" ng-show="!home.authenticated">
-        <body ng-app="app" ng-controller="home as home">
-        Login with: <a href="./login">Facebook</a>
+        <div class="facebook" ng-app="app" ng-controller="home as home">
+        Login with: <a href="/social/login">Facebook</a>
     </div>
     <div class="container" ng-show="home.authenticated">
         Logged in as: <span ng-bind="home.user"></span>
@@ -9,7 +9,6 @@
             <button ng-click="home.logout()" class="btn btn-primary">Logout</button>
         </div>
     </div>
-    </body>
     <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/webjars/angularjs/angular.min.js"></script>
