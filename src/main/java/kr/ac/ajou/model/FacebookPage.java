@@ -1,9 +1,10 @@
 package kr.ac.ajou.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name="facebook_pages",uniqueConstraints = {
+@Table(name="facebook_pages", uniqueConstraints = {
     @UniqueConstraint(columnNames = "fid")
 })
 public class FacebookPage {
@@ -18,6 +19,17 @@ public class FacebookPage {
 
 	public FacebookPage() {
 	}
+
+  @OneToMany(fetch = FetchType.LAZY, mappedBy="facebookPage")
+  private List<Event> events;
+
+  public List<Event> getEvents() {
+    return events;
+  }
+
+  public void setEvents(List<Event> events) {
+    this.events = events;
+  }
 
   public String getFid() {
     return fid;

@@ -13,6 +13,7 @@
         <th>name</th>
         <th>fid</th>
         <th>url</th>
+        <th class="text-center">-</th>
       </tr>
     </thead>
     <tbody>
@@ -21,6 +22,9 @@
         <td th:text="${facebookPage.name}">name</td>
         <td th:text="${facebookPage.fid}">fid</td>
         <td><a th:href="${facebookPage.url}" th:text="${facebookPage.url}"></a></td>
+        <td class="text-center">
+          <a th:href="@{'/facebook_pages/' + ${facebookPage.id} + '/events'}" class="btn btn-info">Show events</a>
+        </td>
       </tr>
     </tbody>
   </table>

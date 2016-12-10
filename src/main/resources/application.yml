@@ -2,7 +2,7 @@
 spring:
   datasource:
     driver-class-name: "com.mysql.jdbc.Driver"
-    url: "jdbc:mysql://huy.dlinkddns.com:3306/calendar_feed"
+    url: "jdbc:mysql://huy.dlinkddns.com:3306/calendar_feed?useUnicode=true&characterEncoding=UTF-8"
     username: "dsd"
     password: "password"
   social:

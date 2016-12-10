@@ -1,109 +1,166 @@
-//package kr.ac.ajou.model;
-//
-//import java.util.Date;
-//
-//import javax.persistence.Column;
-//import javax.persistence.Entity;
-//import javax.persistence.FetchType;
-//import javax.persistence.GeneratedValue;
-//import javax.persistence.GenerationType;
-//import javax.persistence.Id;
-//import javax.persistence.JoinColumn;
-//import javax.persistence.OneToOne;
-//import javax.persistence.Table;
-//import javax.persistence.Temporal;
-//import javax.persistence.TemporalType;
-//
-//@Entity
-//@Table(name="EVENT")
-//public class Event {
-//
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.AUTO)
-//	@Column(name="EVENT_ID")
-//	private long id;
-//
-//	private String name;
-//	@Temporal(TemporalType.DATE)
-//	private Date date;
-//	private String location;
-//	private String description;
-//
-//	@OneToOne(fetch=FetchType.LAZY)
-//	@JoinColumn(name = "FACEBOOK_PAGE_ID")
-//	private FacebookPage pageId;
-//
-//
-//	public Event(String name, java.util.Date date2, String location) {
-//		super();
-//		this.name = name;
-//		this.date = date2;
-//		this.location = location;
-//	}
-//
-//	public Event(String name, Date date, String location, FacebookPage pageId) {
-//		super();
-//		this.name = name;
-//		this.date = date;
-//		this.location = location;
-//		this.pageId = pageId;
-//	}
-//
-//	public Event(long id, String name, Date date, String location, String description, FacebookPage pageId) {
-//		super();
-//		this.id = id;
-//		this.name = name;
-//		this.date = date;
-//		this.location = location;
-//		this.description = description;
-//		this.pageId = pageId;
-//	}
-//
-//	public long getId() {
-//		return id;
-//	}
-//
-//	public void setId(int id) {
-//		this.id = id;
-//	}
-//
-//	public String getName() {
-//		return name;
-//	}
-//
-//	public void setName(String name) {
-//		this.name = name;
-//	}
-//
-//	public Date getDate() {
-//		return date;
-//	}
-//
-//	public void setDate(Date date) {
-//		this.date = date;
-//	}
-//
-//	public String getLocation() {
-//		return location;
-//	}
-//
-//	public void setLocation(String location) {
-//		this.location = location;
-//	}
-//
-//	public String getDescription() {
-//		return description;
-//	}
-//
-//	public void setDescription(String description) {
-//		this.description = description;
-//	}
-//
-//	public FacebookPage getPage_id() {
-//		return pageId;
-//	}
-//
-//	public void setPage_id(FacebookPage pageId) {
-//		this.pageId = pageId;
-//	}
-//}
+package kr.ac.ajou.model;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="events", uniqueConstraints = {
+    @UniqueConstraint(columnNames = "fid")
+})
+public class Event implements Comparable {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
+
+  private String fid;
+	private String name;
+
+  private String place;
+
+  @Lob
+  private String description;
+
+  @Temporal(TemporalType.TIMESTAMP)
+	private Calendar startTime;
+  @Temporal(TemporalType.TIMESTAMP)
+  private Calendar endTime;
+
+	@ManyToOne(fetch=FetchType.LAZY)
+  @JoinColumn(name = "facebook_page_id", nullable = false)
+	private FacebookPage facebookPage;
+
+  public Event() {
+  }
+
+  public Event(String fid, String name, String place, String description, String startTime, String endTime, FacebookPage facebookPage) {
+    this.fid = fid;
+    this.name = name;
+    this.place = place;
+    this.description = description;
+
+    if (startTime != null) {
+      Instant instant = Instant.from(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssZ").parse(startTime));
+      this.startTime = Calendar.getInstance();
+      this.startTime.setTimeInMillis(instant.toEpochMilli());
+    }
+
+    if (endTime != null) {
+      Instant instant = Instant.from(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssZ").parse(endTime));
+      this.endTime = Calendar.getInstance();
+      this.endTime.setTimeInMillis(instant.toEpochMilli());
+    }
+
+    this.facebookPage = facebookPage;
+  }
+
+  public Event(Event event) {
+    this.fid = event.getFid();
+    this.name = event.getName();
+    this.place = event.getPlace();
+    this.description = event.getDescription();
+    this.startTime = event.getStartTime();
+    this.endTime = event.getEndTime();
+    this.facebookPage = event.getFacebookPage();
+  }
+
+
+  public long getId() {
+    return id;
+  }
+
+  public String getFid() {
+    return fid;
+  }
+
+  public void setFid(String fid) {
+    this.fid = fid;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getPlace() {
+    return place;
+  }
+
+  public void setPlace(String place) {
+    this.place = place;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public Calendar getStartTime() {
+    return startTime;
+  }
+
+  public void setStartTime(Calendar startTime) {
+    this.startTime = startTime;
+  }
+
+  public Calendar getEndTime() {
+    return endTime;
+  }
+
+  public void setEndTime(Calendar endTime) {
+    this.endTime = endTime;
+  }
+
+  public FacebookPage getFacebookPage() {
+    return facebookPage;
+  }
+
+  public void setFacebookPage(FacebookPage facebookPage) {
+    this.facebookPage = facebookPage;
+  }
+
+  public ZonedDateTime getStartTimeAsLocalDateTime() {
+    if (startTime != null) {
+     return ZonedDateTime.ofInstant(
+          Instant.ofEpochMilli(startTime.getTimeInMillis()),
+          startTime.getTimeZone().toZoneId());
+    }
+    return null;
+  }
+
+  public ZonedDateTime getEndTimeAsLocalDateTime() {
+    if (endTime != null) {
+      return ZonedDateTime.ofInstant(
+          Instant.ofEpochMilli(endTime.getTimeInMillis()),
+          endTime.getTimeZone().toZoneId());
+    }
+    return null;
+  }
+
+  @Override
+  public int compareTo(Object o) {
+    Event that = (Event)o;
+    if (this.startTime.compareTo(that.startTime) == 0) {
+      return this.getFid().compareTo(that.getFid());
+    }
+    return this.startTime.compareTo(that.startTime);
+  }
+
+
+}

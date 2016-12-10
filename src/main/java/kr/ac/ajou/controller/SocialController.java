@@ -24,9 +24,13 @@ import java.util.Map;
 
 /**
  * Created by chanhyeong on 2016-12-08.
+ * <p>
+ *   Modified by Huy on 2016-12-10.
+ * </p>
  */
 
 @RestController
+@RequestMapping("/social")
 public class SocialController {
   public static final String FACEBOOK_URL = "https://www.facebook.com/v2.8/dialog/oauth";
   public static final String FACEBOOK_EXTENSION_URL = "https://graph.facebook.com/v2.8/oauth/access_token";

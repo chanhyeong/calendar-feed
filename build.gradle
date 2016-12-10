@@ -78,4 +78,8 @@ dependencies {
   // https://mvnrepository.com/artifact/org.webjars/font-awesome
   compile group: 'org.webjars', name: 'font-awesome', version: '4.7.0'
 
+  // https://mvnrepository.com/artifact/org.json/json
+  compile group: 'org.json', name: 'json', version: '20160810'
+
+
 }

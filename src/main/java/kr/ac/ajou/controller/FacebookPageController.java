@@ -15,10 +15,7 @@ import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.api.impl.FacebookTemplate;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
@@ -32,8 +29,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/facebook_pages")
 public class FacebookPageController {
-  public static final String FACEBOOK_PAGE_GET_URL = "https://graph.facebook.com/v2.8";
-
   @Autowired
   private UserService userService;
 
@@ -87,20 +82,18 @@ public class FacebookPageController {
 
     Facebook facebook = new FacebookTemplate(user.getFacebookAccount().getAccessToken());
     for (FacebookPage page : user.getFacebookAccount().getFacebookPages()) {
-      String json = facebook.restOperations().getForObject(
-        String.format("%s/%s", FACEBOOK_PAGE_GET_URL, page.getFid()),
-        String.class
-      );
-      Map<String, Object> map = new HashMap<String, Object>();
-      ObjectMapper mapper = new ObjectMapper();
-      try {
-        map = mapper.readValue(json, new TypeReference<Map<String, String>>(){});
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-      page.setName((String)map.get("name"));
-      facebookPageService.update(page);
+      facebookPageService.update(page, facebook);
+      facebookPageService.updateEvents(page, facebook);
     }
+    return modelAndView;
+  }
+
+  @RequestMapping(value = "/{facebookPageId}/events", method = RequestMethod.GET)
+  public ModelAndView events(Principal principal, @PathVariable Long facebookPageId) {
+    ModelAndView modelAndView = new ModelAndView("/events/index");
+    FacebookPage facebookPage = facebookPageService.findById(facebookPageId);
+
+    modelAndView.addObject("events", facebookPage.getEvents());
     return modelAndView;
   }
 }

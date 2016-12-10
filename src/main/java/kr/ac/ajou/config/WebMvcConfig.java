@@ -29,6 +29,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
     viewResolver.setTemplateEngine(templateEngine());
     viewResolver.setOrder(1);
+    viewResolver.setCharacterEncoding("UTF-8");
+    viewResolver.setContentType("text/html; charset=UTF-8");
     return viewResolver;
   }
 
