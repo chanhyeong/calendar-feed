@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -43,5 +44,10 @@ public class UserServiceImpl implements UserService {
 
   public User findByUsername(String username) {
     return userRepository.findByUsername(username);
+  }
+
+  @Override
+  public User find(Principal principal) {
+    return findByUsername(principal.getName());
   }
 }

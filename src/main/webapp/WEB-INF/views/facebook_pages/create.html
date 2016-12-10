@@ -1,0 +1,30 @@
+<div th:fragment="content" xmlns:th="http://www.w3.org/1999/xhtml">
+  <div id="createFacebookPage" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+    <div class="panel panel-info" >
+      <div class="panel-heading">
+        <div class="panel-title">Facebook Page</div>
+      </div>
+
+      <div style="padding-top:30px" class="panel-body" >
+        <form id="facebookPageForm" class="form-horizontal" role="form" method="post" th:action="@{/facebook_pages/create}">
+
+          <div style="margin-bottom: 25px" class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+            <input id="url" type="text" class="form-control" name="url" value="" placeholder="url"/>
+          </div>
+
+          <div style="margin-top:10px" class="form-group">
+            <!-- Button -->
+            <div class="col-sm-12 controls">
+              <button id="btn-signup" type="submit" class="btn btn-info">
+                Submit
+              </button>
+            </div>
+          </div>
+        </form>
+
+
+      </div>
+    </div>
+  </div>
+</div>

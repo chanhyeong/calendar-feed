@@ -21,9 +21,6 @@ public class UserRestController {
   private UserService userService;
 
   @Autowired
-  private SecurityService securityService;
-
-  @Autowired
   private UserValidator userValidator;
 
   @RequestMapping(value = "/sign_up", method = RequestMethod.GET)

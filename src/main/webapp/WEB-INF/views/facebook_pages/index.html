@@ -1,0 +1,27 @@
+<div th:fragment="content" xmlns:th="http://www.w3.org/1999/xhtml">
+  <div class="text-center">
+    <form method="post" th:action="@{/facebook_pages/update}">
+      <button type="submit" class="btn btn-primary">
+        Pages Update
+      </button>
+    </form>
+  </div>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>name</th>
+        <th>fid</th>
+        <th>url</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="facebookPage : ${facebookPages}">
+        <td th:text="${facebookPage.id}">id</td>
+        <td th:text="${facebookPage.name}">name</td>
+        <td th:text="${facebookPage.fid}">fid</td>
+        <td><a th:href="${facebookPage.url}" th:text="${facebookPage.url}"></a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

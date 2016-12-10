@@ -3,6 +3,7 @@ package kr.ac.ajou.model;
 import org.springframework.social.facebook.api.Facebook;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="facebook_accounts", uniqueConstraints = {
@@ -20,6 +21,13 @@ public class FacebookAccount {
   @PrimaryKeyJoinColumn
   private User user;
 
+  @ManyToMany
+  @JoinTable(
+      name="facebook_accounts_pages",
+      joinColumns=@JoinColumn(name="facebook_account_id", referencedColumnName="id"),
+      inverseJoinColumns=@JoinColumn(name="facebook_page_id", referencedColumnName="id"))
+  private List<FacebookPage> facebookPages;
+
   public FacebookAccount() {
   }
 
@@ -27,6 +35,14 @@ public class FacebookAccount {
     this.fid = fId;
     this.accessToken = accessToken;
     this.user = user;
+  }
+
+  public String getFid() {
+    return fid;
+  }
+
+  public List<FacebookPage> getFacebookPages() {
+    return facebookPages;
   }
 
   public String getfId() {

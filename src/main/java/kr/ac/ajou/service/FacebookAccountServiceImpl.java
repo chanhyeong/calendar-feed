@@ -27,7 +27,7 @@ public class FacebookAccountServiceImpl implements FacebookAccountService {
   }
 
   @Override
-  public void findOrCreate(String fid, String accessToken, User user) {
+  public FacebookAccount findOrCreate(String fid, String accessToken, User user) {
     FacebookAccount facebookAccount = facebookAccountRepository.getByFid(fid);
     if (facebookAccount == null) {
       facebookAccount = new FacebookAccount(fid, accessToken, user);
@@ -35,6 +35,7 @@ public class FacebookAccountServiceImpl implements FacebookAccountService {
     facebookAccount.setAccessToken(accessToken);
     facebookAccount.setUser(user);
     facebookAccountRepository.save(facebookAccount);
+    return facebookAccount;
   }
 
   @Override

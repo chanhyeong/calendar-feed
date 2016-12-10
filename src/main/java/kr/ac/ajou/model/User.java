@@ -38,6 +38,10 @@ public class User {
     return username;
   }
 
+  public FacebookAccount getFacebookAccount() {
+    return facebookAccount;
+  }
+
   public String getName() {
     return name;
   }
