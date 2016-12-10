@@ -5,7 +5,8 @@ import org.springframework.social.facebook.api.Facebook;
 import javax.persistence.*;
 
 @Entity
-@Table(name="facebook_accounts")
+@Table(name="facebook_accounts", uniqueConstraints = {
+    @UniqueConstraint(columnNames = "fid")})
 public class FacebookAccount {
 
 	@Id
@@ -15,7 +16,8 @@ public class FacebookAccount {
 	private String fid;
   private String accessToken;
 
-  @OneToOne
+  @OneToOne(fetch = FetchType.LAZY)
+  @PrimaryKeyJoinColumn
   private User user;
 
   public FacebookAccount() {

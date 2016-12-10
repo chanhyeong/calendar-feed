@@ -27,9 +27,8 @@ public class User {
   private Timestamp createdAt;
   private Timestamp updatedAt;
 
-//  @OneToOne
-//  @PrimaryKeyJoinColumn
-//  private FacebookAccount facebookAccount;
+  @OneToOne(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+  private FacebookAccount facebookAccount;
 
   public long getId() {
     return id;
