@@ -5,7 +5,11 @@ spring:
     url: "jdbc:mysql://huy.dlinkddns.com:3306/calendar_feed"
     username: "dsd"
     password: "password"
-
+  social:
+    facebook:
+      appId: "1557687774481263"
+      appSecret: "a542a2865e9046249bc0164571ea5fe3"
+      redirectUri: "http://localhost:8080/social/facebook/connected"
 #  mvc:
 #    view:
 #      prefix: "/webapp/view"
@@ -13,18 +17,18 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: "create"
+      ddl-auto: "update"
     show-sql: true
 
-security:
-  oauth2:
-    client:
-      clientId: 987016641426167
-      clientSecret: b8bb28d5cc850b04499e0769afea366a
-      accessTokenUri: https://graph.facebook.com/oauth/access_token
-      userAuthorizationUri: https://www.facebook.com/dialog/oauth
-      tokenName: oauth_token
-      authenticationScheme: query
-      clientAuthenticationScheme: form
-    resource:
-      userInfoUri: https://graph.facebook.com/me
+#security:
+#  oauth2:
+#    client:
+#      clientId: 987016641426167
+#      clientSecret: b8bb28d5cc850b04499e0769afea366a
+#      accessTokenUri: https://graph.facebook.com/oauth/access_token
+#      userAuthorizationUri: https://www.facebook.com/dialog/oauth
+#      tokenName: oauth_token
+#      authenticationScheme: query
+#      clientAuthenticationScheme: form
+#    resource:
+#      userInfoUri: https://graph.facebook.com/me

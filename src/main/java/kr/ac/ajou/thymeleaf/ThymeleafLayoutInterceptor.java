@@ -35,7 +35,7 @@ public class ThymeleafLayoutInterceptor extends HandlerInterceptorAdapter {
 
   @Override
   public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-    if (modelAndView == null || !modelAndView.hasView()) {
+    if (modelAndView == null || !modelAndView.hasView() || modelAndView.getViewName() == null) {
       return;
     }
     String originalViewName = modelAndView.getViewName();

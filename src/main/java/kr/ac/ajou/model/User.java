@@ -1,6 +1,8 @@
 package kr.ac.ajou.model;
 
 
+import org.springframework.social.facebook.api.Facebook;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -25,6 +27,9 @@ public class User {
   private Timestamp createdAt;
   private Timestamp updatedAt;
 
+//  @OneToOne
+//  @PrimaryKeyJoinColumn
+//  private FacebookAccount facebookAccount;
 
   public long getId() {
     return id;

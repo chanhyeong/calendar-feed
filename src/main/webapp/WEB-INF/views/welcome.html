@@ -4,5 +4,14 @@
     <span th:text="${currentUser.username}"></span>
     <span th:text="${currentUser.name}"></span>
     Welcome to the Spring MVC Quickstart application!
+
+    <form method="post" class="form-horizontal" role="form" th:action="@{/social/facebook/connect}" id="fblogin-form">
+      <div class="col-md-offset-3 col-md-9">
+        <button id="btn-fbsignup" type="submit" class="btn btn-primary">
+          <i class="fa fa-facebook"></i>
+          Connect Facebook
+        </button>
+      </div>
+    </form>
   </p>
 </div>

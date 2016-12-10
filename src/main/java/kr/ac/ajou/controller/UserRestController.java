@@ -44,10 +44,7 @@ public class UserRestController {
       return modelAndView;
     }
 
-    String rawPassword = user.getPassword();
     userService.create(user);
-
-    securityService.autoLogin(user.getUsername(), rawPassword);
     modelAndView.setViewName("redirect:/users/sign_in");
     return modelAndView;
   }

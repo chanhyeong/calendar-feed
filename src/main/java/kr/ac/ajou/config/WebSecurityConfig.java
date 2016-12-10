@@ -48,7 +48,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     http
         .authorizeRequests()
-        .antMatchers("/resources/**", "/social/**", "/users/sign_up", "/webjars/**", "/static/**").permitAll()
+        .antMatchers(
+            "/resources/**",
+            "/social/**",
+            "/users/sign_up",
+            "/webjars/**",
+            "/static/**",
+            "/connect/*").permitAll()
         .anyRequest().authenticated()
         .and()
         .formLogin()
@@ -56,37 +62,37 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .permitAll()
         .and()
         .logout()
-        .permitAll()
-            .and().logout().logoutSuccessUrl("/users/sign_in").permitAll()
-            .and().csrf().csrfTokenRepository(csrfTokenRepository())
-            .and().addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
+        .permitAll();
+//            .and().logout().logoutSuccessUrl("/users/sign_in").permitAll()
+//            .and().csrf().csrfTokenRepository(csrfTokenRepository())
+//            .and().addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
   }
 
-  private Filter csrfHeaderFilter() {
-    return new OncePerRequestFilter() {
-      @Override
-      protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-                                      FilterChain filterChain) throws ServletException, IOException {
-        CsrfToken csrf = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
-        if (csrf != null) {
-          Cookie cookie = WebUtils.getCookie(request, "XSRF-TOKEN");
-          String token = csrf.getToken();
-          if (cookie == null || token != null && !token.equals(cookie.getValue())) {
-            cookie = new Cookie("XSRF-TOKEN", token);
-            cookie.setPath("/social");
-            response.addCookie(cookie);
-          }
-        }
-        filterChain.doFilter(request, response);
-      }
-    };
-  }
-
-  private CsrfTokenRepository csrfTokenRepository() {
-    HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
-    repository.setHeaderName("X-XSRF-TOKEN");
-    return repository;
-  }
+//  private Filter csrfHeaderFilter() {
+//    return new OncePerRequestFilter() {
+//      @Override
+//      protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+//                                      FilterChain filterChain) throws ServletException, IOException {
+//        CsrfToken csrf = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
+//        if (csrf != null) {
+//          Cookie cookie = WebUtils.getCookie(request, "XSRF-TOKEN");
+//          String token = csrf.getToken();
+//          if (cookie == null || token != null && !token.equals(cookie.getValue())) {
+//            cookie = new Cookie("XSRF-TOKEN", token);
+//            cookie.setPath("/social");
+//            response.addCookie(cookie);
+//          }
+//        }
+//        filterChain.doFilter(request, response);
+//      }
+//    };
+//  }
+//
+//  private CsrfTokenRepository csrfTokenRepository() {
+//    HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
+//    repository.setHeaderName("X-XSRF-TOKEN");
+//    return repository;
+//  }
 
 
   @Autowired
