@@ -9,7 +9,7 @@ spring:
     facebook:
       appId: "1557687774481263"
       appSecret: "a542a2865e9046249bc0164571ea5fe3"
-      redirectUri: "http://localhost:8080/social/facebook/connected"
+      redirectUri: "http://huy.dlinkddns.com/social/facebook/connected"
 #  mvc:
 #    view:
 #      prefix: "/webapp/view"

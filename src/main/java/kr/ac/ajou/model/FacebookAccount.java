@@ -17,8 +17,7 @@ public class FacebookAccount {
 	private String fid;
   private String accessToken;
 
-  @OneToOne(fetch = FetchType.LAZY)
-  @PrimaryKeyJoinColumn
+  @OneToOne
   private User user;
 
   @ManyToMany
