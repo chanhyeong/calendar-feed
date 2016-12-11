@@ -23,8 +23,7 @@ http://www.thymeleaf.org/doc/articles/standarddialect5minutes.html
 ## Run
 ### Command line
 ```
-$ gradle build
-$ java -Xss1m -Xmx1024m -jar build/libs/calendar-feed-0.0.1-SNAPSHOT.jar
+$ gradle bootRun
 ```
 
 ### Spring-sts
