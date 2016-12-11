@@ -21,8 +21,14 @@ https://spring.io/guides
 http://www.thymeleaf.org/doc/articles/standarddialect5minutes.html
 
 ## Run
+### Command line
+```
+$ gradle build
+$ java -Xss1m -Xmx1024m -jar build/libs/calendar-feed-0.0.1-SNAPSHOT.jar
+```
 
-- ![Run. Step 1](https://github.com/kty1965/calendar-feed/blob/master/images/1.png)
-- ![Run. Step 2](https://github.com/kty1965/calendar-feed/blob/master/images/2.png)
-- ![Run. Step 3](https://github.com/kty1965/calendar-feed/blob/master/images/3.png)
-- ![Run. Step 4](https://github.com/kty1965/calendar-feed/blob/master/images/4.png)
+### Spring-sts
+![Run. Step 1](https://github.com/kty1965/calendar-feed/blob/master/images/1.png)
+![Run. Step 2](https://github.com/kty1965/calendar-feed/blob/master/images/2.png)
+![Run. Step 3](https://github.com/kty1965/calendar-feed/blob/master/images/3.png)
+![Run. Step 4](https://github.com/kty1965/calendar-feed/blob/master/images/4.png)
