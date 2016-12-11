@@ -16,17 +16,14 @@ public class FacebookAccountServiceImpl implements FacebookAccountService {
   @Autowired
   private FacebookAccountRepository facebookAccountRepository;
 
-  @Override
   public void create(FacebookAccount facebookAccount) {
     facebookAccountRepository.save(facebookAccount);
   }
 
-  @Override
   public void save(FacebookAccount facebookAccount) {
     facebookAccountRepository.save(facebookAccount);
   }
 
-  @Override
   public FacebookAccount findOrCreate(String fid, String accessToken, User user) {
     FacebookAccount facebookAccount = facebookAccountRepository.getByFid(fid);
     if (facebookAccount == null) {
@@ -38,7 +35,6 @@ public class FacebookAccountServiceImpl implements FacebookAccountService {
     return facebookAccount;
   }
 
-  @Override
   public FacebookAccount findByFid(String fid) {
     return facebookAccountRepository.getByFid(fid);
   }

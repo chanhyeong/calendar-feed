@@ -14,7 +14,6 @@ public class EventServiceImpl implements EventService {
   @Autowired
   private EventRepository eventRepository;
 
-  @Override
   public Event findOrCreate(Event event) {
     Event res = eventRepository.getByFid(event.getFid());
     if (res == null) {

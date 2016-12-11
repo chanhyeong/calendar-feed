@@ -3,6 +3,7 @@ package kr.ac.ajou.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.vdurmont.emoji.EmojiParser;
 
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -47,7 +48,7 @@ public class Event implements Comparable {
     this.fid = fid;
     this.name = name;
     this.place = place;
-    this.description = description;
+    setDescription(description);
 
     if (startTime != null) {
       Instant instant = Instant.from(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssZ").parse(startTime));
@@ -68,7 +69,7 @@ public class Event implements Comparable {
     this.fid = event.getFid();
     this.name = event.getName();
     this.place = event.getPlace();
-    this.description = event.getDescription();
+    setDescription(event.getDescription());
     this.startTime = event.getStartTime();
     this.endTime = event.getEndTime();
     this.facebookPage = event.getFacebookPage();
@@ -108,7 +109,9 @@ public class Event implements Comparable {
   }
 
   public void setDescription(String description) {
-    this.description = description;
+    if (description != null) {
+      this.description = EmojiParser.removeAllEmojis(description);
+    }
   }
 
   public Calendar getStartTime() {
@@ -153,7 +156,6 @@ public class Event implements Comparable {
     return null;
   }
 
-  @Override
   public int compareTo(Object o) {
     Event that = (Event)o;
     if (this.startTime.compareTo(that.startTime) == 0) {

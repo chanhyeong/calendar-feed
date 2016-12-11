@@ -39,12 +39,10 @@ public class FacebookPageSerivceImpl implements FacebookPageService {
   @Autowired
   EventService eventService;
 
-  @Override
   public FacebookPage findById(Long id) {
     return facebookPageRepository.findOne(id);
   }
 
-  @Override
   public FacebookPage findOrCreateByUrl(String url) {
     FacebookPage facebookPage = facebookPageRepository.getByUrl(url);
     if (facebookPage == null) {
@@ -56,7 +54,6 @@ public class FacebookPageSerivceImpl implements FacebookPageService {
     return facebookPage;
   }
 
-  @Override
   public FacebookPage update(FacebookPage facebookPage, Facebook facebook) {
     String json = facebook.restOperations().getForObject(
         String.format("%s/%s", FACEBOOK_PAGE_GET_URL, facebookPage.getFid()),
@@ -89,9 +86,8 @@ public class FacebookPageSerivceImpl implements FacebookPageService {
     return fid;
   }
 
-  @Override
   public List<Event> updateEvents(FacebookPage facebookPage, Facebook facebook) {
-    List<Event> events = new ArrayList<>();
+    List<Event> events = new ArrayList<Event>();
     String jsonString = facebook.restOperations().getForObject(
         String.format(FACEBOOK_PAGE_EVENTS_GET_URL, facebookPage.getFid()),
         String.class

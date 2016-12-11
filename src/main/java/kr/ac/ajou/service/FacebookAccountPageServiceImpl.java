@@ -17,7 +17,6 @@ public class FacebookAccountPageServiceImpl implements FacebookAccountPageServic
   @Autowired
   private FacebookAccountPageRepository facebookAccountPageRepository;
 
-  @Override
   public void create(FacebookAccount facebookAccount, FacebookPage facebookPage) {
     FacebookAccountPage facebookAccountPage = new FacebookAccountPage(facebookAccount, facebookPage);
     try {

@@ -46,7 +46,6 @@ public class UserServiceImpl implements UserService {
     return userRepository.findByUsername(username);
   }
 
-  @Override
   public User find(Principal principal) {
     return findByUsername(principal.getName());
   }
