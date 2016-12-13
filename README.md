@@ -1,7 +1,11 @@
 ## Install
 
 - install [Intellij](https://www.jetbrains.com/idea/) IDE tool.
+- instead of Intellij [Spring-sts](https://spring.io/tools/sts) IDE tool.
 - install [Mysql](https://dev.mysql.com/downloads/mysql/) server.
+- install [Gradle](https://gradle.org/gradle-download/)
+- instead of Gradle [Maven](https://maven.apache.org/download.cgi)
+- install [JAVA 8 JDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 
 ## Setting
 
@@ -9,16 +13,17 @@
 - username: dsd
 - password: password
 
-## Tutorials
-https://spring.io/guides/gs/spring-boot/
-
-https://spring.io/guides/gs/accessing-data-rest/
-
-https://spring.io/guides/gs/securing-web/
-
-https://spring.io/guides
-
-http://www.thymeleaf.org/doc/articles/standarddialect5minutes.html
+In Mysql create user and grant privileges
+```
+$ create user 'dsd'@'%' identified by 'password';
+$ grant all privileges on *.* to 'dsd'@'%';
+$ flush privileges;
+```
+In Mysql create Databse
+```
+$ create database calendar_feed;
+```
+Rest of tables are made by JPA.
 
 ## Run
 ### Command line
