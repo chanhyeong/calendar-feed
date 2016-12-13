@@ -24,6 +24,20 @@ In Mysql create Databse
 $ create database calendar_feed;
 ```
 Rest of tables are made by JPA.
+And then You will modifiy resources/application.yml file.
+```
+spring:
+  datasource:
+    driver-class-name: "com.mysql.jdbc.Driver"
+    url: "jdbc:mysql://localhost:3306/calendar_feed?useUnicode=true&characterEncoding=UTF-8"
+    username: "dsd"
+    password: "password"
+  social:
+    facebook:
+      appId: "*"
+      appSecret: "*"
+      redirectUri: "http://localhost:8080/social/facebook/connected"
+```
 
 ## Run
 ### Command line
